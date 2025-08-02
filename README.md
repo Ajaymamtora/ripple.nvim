@@ -70,6 +70,32 @@ require('ripple').setup({
 })
 ```
 
+## API
+
+### smart_resize(direction, amount)
+
+Ripple also provides a `smart_resize` function for intelligent window resizing that integrates with the [edgy.nvim](https://github.com/folke/edgy.nvim) plugin. This function will:
+
+1. First check if the current window is an edgy sidebar window and resize accordingly
+2. Fall back to ripple's expansion functions
+3. Finally fall back to standard vim resize commands
+
+```lua
+local ripple = require('ripple')
+
+-- Usage example for creating custom keymaps
+vim.keymap.set('n', '<leader>h', ripple.smart_resize('h', 5), { desc = 'Smart resize left' })
+vim.keymap.set('n', '<leader>l', ripple.smart_resize('l', 5), { desc = 'Smart resize right' })
+vim.keymap.set('n', '<leader>j', ripple.smart_resize('j', 2), { desc = 'Smart resize down' })
+vim.keymap.set('n', '<leader>k', ripple.smart_resize('k', 2), { desc = 'Smart resize up' })
+```
+
+Direction parameters:
+- `'h'` - resize left
+- `'l'` - resize right  
+- `'j'` - resize down
+- `'k'` - resize up
+
 If you are lazy-loading via `lazy.nvim`, you should use the following.
 
 *NOTE:* If you're not using the default mappings, you'll need to update these to
