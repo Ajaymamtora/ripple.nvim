@@ -1,7 +1,7 @@
 local M = {}
 
 -- Debug mode - set to true to enable debug printing
-local DEBUG = true
+local DEBUG = false
 
 local function debug_print(...)
 	if DEBUG then
@@ -139,18 +139,18 @@ function M.smart_resize(direction, amount)
 	end
 
 	debug_print("falling back to native wincmd")
-	
+
 	-- When expand function fails, we need to do the opposite operation as fallback
 	-- The failure means there's no window in that direction to take space from,
 	-- so we shrink the current window to give space to the opposite direction
 	local wincmd = nil
-	
+
 	if direction == "h" then
 		-- expand_left failed (no left window) -> shrink current to give space to right
 		debug_print("expand_left failed - shrinking current window")
 		wincmd = "<"
 	elseif direction == "l" then
-		-- expand_right failed (no right window) -> shrink current to give space to left  
+		-- expand_right failed (no right window) -> shrink current to give space to left
 		debug_print("expand_right failed - shrinking current window")
 		wincmd = "<"
 	elseif direction == "j" then
@@ -162,7 +162,7 @@ function M.smart_resize(direction, amount)
 		debug_print("expand_up failed - shrinking current window")
 		wincmd = "-"
 	end
-	
+
 	if wincmd then
 		debug_print("executing wincmd", wincmd, "x", math.abs(amount), "times")
 		for i = 1, math.abs(amount) do
